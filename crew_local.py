@@ -29,13 +29,13 @@ research_agent = Agent(
 
 professional_writer_agent = Agent(
     role="Professional Writer",
-    goal="Write professional emails based on the research agent's findings",
+    goal="Write professional blog based on the research agent's findings",
     allow_delegation=False,
     verbose=True,
     backstory=(
         """
         The professional writer agent has excellent writing skills and is able to craft 
-        clear and concise emails based on the provided information.
+        clear and concise content based on the provided information.
         """
     ),
     tools=[],
@@ -63,18 +63,18 @@ answer_customer_question_task = Task(
     agent=research_agent,
 )
 
-write_email_task = Task(
+write_report_task = Task(
     description=(
         """
-        Write a professional email to a contractor based on the research agent's findings.
-        The email should clearly state the issues found in the specified section of the report
+        Write a professional report to a contractor based on the research agent's findings.
+        The report should clearly state the issues found in the specified section of the report
         and request a quote or action plan for guide customer.
 
         """
     ),
     expected_output="""
-        Write a clear and concise email that can be sent to a contractor to address the 
-        issues found in the home inspection report.
+        Write a clear and concise report, creation of user-friendly layouts, seeking support to ensure accurate information and if you don't know
+        just say that that it's out of your knowledge.
         """,
     tools=[],
     agent=professional_writer_agent,
@@ -82,7 +82,7 @@ write_email_task = Task(
 
 # --- Crew ---
 crew = Crew(
-    tasks=[answer_customer_question_task, write_email_task],
+    tasks=[answer_customer_question_task, write_report_task],
     agents=[research_agent, professional_writer_agent],
     process=Process.sequential,
 )
